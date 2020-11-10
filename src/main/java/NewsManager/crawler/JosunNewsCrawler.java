@@ -43,10 +43,28 @@ public class JosunNewsCrawler implements NewsCrawler {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-
-		
 		
 		return newsList;
+	}
+	
+	public NewsItem getNewsRawData(String link) {
+		NewsItem ni = new NewsItem();
+		
+		try {
+			Document doc = Jsoup.connect("https://biz.chosun.com/site/data/html_dir/2020/11/10/2020111003266.html").get();	// @ change to link
+			StringBuffer sb = new StringBuffer();
+
+			for(Element phaseElement : doc.getElementById("news_body_id").getElementsByClass("par")) {
+				sb.append(phaseElement.ownText());
+			}
+			
+			// 문단 끝은 개행문자 삽입하여 저장
+			ni.setContents(sb.toString().replaceAll("[.] ", ".\n\n"));
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return ni;
 	}
 }

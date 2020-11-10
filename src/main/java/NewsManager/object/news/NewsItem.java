@@ -20,6 +20,9 @@ public class NewsItem {
 	public NewsItem(String title, String contents) {
 		this(title, contents, null, null);
 	}
+	public NewsItem() {
+		this(null, null, null, null);
+	}
 
 	// getter & setter
 	public String getTitle() {
